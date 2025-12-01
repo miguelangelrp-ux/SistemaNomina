@@ -97,9 +97,32 @@ namespace Sistema_Nomina
             return rows > 0;
         }
 
-        //Borrar empleado existente
+
+
+        //Borrar empleado existente con confirmación
         public bool EliminarEmpleado(string codigo)
         {
+            // Obtenemos el empleado para mostrar su nombre
+            var empleados = ObtenerEmpleados();
+            var empleado = empleados.Find(e => e.Codigo == codigo);
+
+            if (empleado == null)
+            {
+                Console.WriteLine("Empleado no encontrado.");
+                return false;
+            }
+
+            // Confirmación antes de eliminar
+            Console.Write($"¿Está seguro que desea eliminar al empleado {empleado.Nombre}? (S/N): ");
+            string respuesta = Console.ReadLine().Trim().ToUpper();
+
+            if (respuesta != "S")
+            {
+                Console.WriteLine("Operación cancelada. No se eliminó al empleado.");
+                return false;
+            }
+
+            // Conexión a la base de datos y eliminación
             using var connection = new SqliteConnection(connectionString);
             connection.Open();
 
@@ -108,8 +131,15 @@ namespace Sistema_Nomina
             deleteCmd.Parameters.AddWithValue("$codigo", codigo);
 
             int rows = deleteCmd.ExecuteNonQuery();
+
+            if (rows > 0)
+                Console.WriteLine($"Empleado {empleado.Nombre} eliminado exitosamente.");
+
             return rows > 0;
         }
+
+
+        
 
         //Generar la nomina si existe algun empleado
         public void GenerarNomina()
