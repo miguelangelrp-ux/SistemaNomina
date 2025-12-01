@@ -5,8 +5,7 @@ namespace Sistema_Nomina
 {
     class Program
     {
-        // Lista de empleados
-        static Empresa empresa = new Empresa("Servicios Corporativos Caribe SRL");
+        static Empresa empresa = new Empresa();
 
         static void Main(string[] args)
         {
@@ -21,7 +20,7 @@ namespace Sistema_Nomina
                 Console.WriteLine("1. Agregar empleado");
                 Console.WriteLine("2. Editar empleado");
                 Console.WriteLine("3. Consultar empleados");
-                Console.WriteLine("4. Eliminar empleados");
+                Console.WriteLine("4. Eliminar empleado");
                 Console.WriteLine("5. Generar nómina");
                 Console.WriteLine("6. Reporte mensual");
                 Console.WriteLine("0. Salir");
@@ -78,8 +77,24 @@ namespace Sistema_Nomina
                 Console.WriteLine("Ya existe un empleado con ese código.");
         }
 
+        //Consultando lista de empleados
+        static void ConsultarEmpleadosMenu()
+        {
+            var empleados = empresa.ObtenerEmpleados();
+            if (empleados.Count == 0)
+            {
+                Console.WriteLine("No hay empleados registrados.");
+                return;
+            }
 
-        //Editar empleado existente
+            Console.WriteLine("\n--- Lista de Empleados ---");
+            foreach (var emp in empleados)
+            {
+                Console.WriteLine($"{emp.Codigo} | {emp.Nombre} | {emp.Departamento} | Salario Base: {emp.SalarioBase:C}");
+            }
+        }
+
+        //Editando empleado
         static void EditarEmpleadoMenu()
         {
             Console.Write("Ingrese el código del empleado a editar: ");
@@ -112,24 +127,7 @@ namespace Sistema_Nomina
                 Console.WriteLine("No se pudo actualizar el empleado.");
         }
 
-
-         //Consultando empleados, verificando que no hay 0 registrados y luego mostrando
-        static void ConsultarEmpleadosMenu()
-        {
-            var empleados = empresa.ObtenerEmpleados();
-            if (empleados.Count == 0)
-            {
-                Console.WriteLine("No hay empleados registrados.");
-                return;
-            }
-
-            Console.WriteLine("\n--- Lista de Empleados ---");
-            foreach (var emp in empleados)
-            {
-                Console.WriteLine($"{emp.Codigo} | {emp.Nombre} | {emp.Departamento} | Salario Base: {emp.SalarioBase:C}");
-            }
-        }
-        
+        //Eliminar empleado que ya existe
         static void EliminarEmpleadoMenu()
         {
             Console.Write("Ingrese el código del empleado a eliminar: ");
@@ -140,8 +138,6 @@ namespace Sistema_Nomina
             else
                 Console.WriteLine("Empleado no encontrado.");
         }
-
-
     }
 }
 

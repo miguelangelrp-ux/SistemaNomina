@@ -1,65 +1,115 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.Data.Sqlite;
 
 namespace Sistema_Nomina
 {
     public class Empresa
     {
-        public string Nombre { get; set; }
-        private List<Empleado> empleados;
+        private string connectionString = "Data Source=empresa.db";
 
-        public Empresa(string nombre)
+        public Empresa()
         {
-            Nombre = nombre;
-            empleados = new List<Empleado>();
+            // Crear tabla si no existe
+            using var connection = new SqliteConnection(connectionString);
+            connection.Open();
+
+            var tableCmd = connection.CreateCommand();
+            tableCmd.CommandText = @"
+                CREATE TABLE IF NOT EXISTS empleados (
+                    Codigo TEXT PRIMARY KEY,
+                    Nombre TEXT,
+                    Departamento TEXT,
+                    SalarioBase REAL
+                );";
+            tableCmd.ExecuteNonQuery();
         }
 
-        //Metodos
-
-        //Agregando empleado
         public bool AgregarEmpleado(Empleado emp)
         {
-            if (empleados.Exists(e => e.Codigo == emp.Codigo))
-                return false;
+            using var connection = new SqliteConnection(connectionString);
+            connection.Open();
 
-            empleados.Add(emp);
-            return true;
+            var insertCmd = connection.CreateCommand();
+            insertCmd.CommandText = @"
+                INSERT INTO empleados (Codigo, Nombre, Departamento, SalarioBase)
+                VALUES ($codigo, $nombre, $departamento, $salario);";
+            insertCmd.Parameters.AddWithValue("$codigo", emp.Codigo);
+            insertCmd.Parameters.AddWithValue("$nombre", emp.Nombre);
+            insertCmd.Parameters.AddWithValue("$departamento", emp.Departamento);
+            insertCmd.Parameters.AddWithValue("$salario", emp.SalarioBase);
+
+            try
+            {
+                insertCmd.ExecuteNonQuery();
+                return true;
+            }
+            catch (SqliteException)
+            {
+                return false; // código duplicado
+            }
         }
 
-        //Obteniendo una lista de empleados
         public List<Empleado> ObtenerEmpleados()
         {
-            return empleados;
+            var lista = new List<Empleado>();
+
+            using var connection = new SqliteConnection(connectionString);
+            connection.Open();
+
+            var selectCmd = connection.CreateCommand();
+            selectCmd.CommandText = "SELECT Codigo, Nombre, Departamento, SalarioBase FROM empleados;";
+
+            using var reader = selectCmd.ExecuteReader();
+            while (reader.Read())
+            {
+                lista.Add(new Empleado(
+                    reader.GetString(1),  // Nombre
+                    reader.GetString(0),  // Codigo
+                    reader.GetString(2),  // Departamento
+                    reader.GetDouble(3)   // SalarioBase
+                ));
+            }
+
+            return lista;
         }
 
-        //Editar empleado
         public bool EditarEmpleado(string codigo, string nuevoNombre, string nuevoDepartamento, double nuevoSalarioBase)
         {
-            var emp = empleados.Find(e => e.Codigo == codigo);
-            if (emp == null)
-                return false; // No encontrado
+            using var connection = new SqliteConnection(connectionString);
+            connection.Open();
 
-            emp.Nombre = nuevoNombre;
-            emp.Departamento = nuevoDepartamento;
-            emp.SalarioBase = nuevoSalarioBase;
-            return true;
+            var updateCmd = connection.CreateCommand();
+            updateCmd.CommandText = @"
+                UPDATE empleados 
+                SET Nombre = $nombre, Departamento = $dep, SalarioBase = $salario
+                WHERE Codigo = $codigo;";
+            updateCmd.Parameters.AddWithValue("$nombre", nuevoNombre);
+            updateCmd.Parameters.AddWithValue("$dep", nuevoDepartamento);
+            updateCmd.Parameters.AddWithValue("$salario", nuevoSalarioBase);
+            updateCmd.Parameters.AddWithValue("$codigo", codigo);
+
+            int rows = updateCmd.ExecuteNonQuery();
+            return rows > 0;
         }
 
         public bool EliminarEmpleado(string codigo)
         {
-            var emp = empleados.Find(e => e.Codigo == codigo);
-            if (emp == null)
-                return false;
+            using var connection = new SqliteConnection(connectionString);
+            connection.Open();
 
-            empleados.Remove(emp);
-            return true;
+            var deleteCmd = connection.CreateCommand();
+            deleteCmd.CommandText = "DELETE FROM empleados WHERE Codigo = $codigo;";
+            deleteCmd.Parameters.AddWithValue("$codigo", codigo);
+
+            int rows = deleteCmd.ExecuteNonQuery();
+            return rows > 0;
         }
 
-
-
-        //Generando la nomina con sus deduccionnes
         public void GenerarNomina()
         {
+            var empleados = ObtenerEmpleados();
+
             if (empleados.Count == 0)
             {
                 Console.WriteLine("No hay empleados registrados.");
@@ -77,9 +127,10 @@ namespace Sistema_Nomina
             }
         }
 
-        //Generando reporte mensual por todo con sus deducciones
         public void ReporteMensual()
         {
+            var empleados = ObtenerEmpleados();
+
             if (empleados.Count == 0)
             {
                 Console.WriteLine("No hay empleados registrados.");
@@ -107,3 +158,4 @@ namespace Sistema_Nomina
         }
     }
 }
+
