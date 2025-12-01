@@ -7,19 +7,19 @@ namespace Sistema_Nomina
 {
     public class Empleado
     {
-        public string nombre {get; set;}
-        public string codigo {get; set;}
-        public string departamento {get; set;}
-        public double salarioBase {get; set;}
+        public string Nombre {get; set;}
+        public string Codigo {get; set;}
+        public string Departamento {get; set;}
+        public double SalarioBase {get; set;}
         
 
         //Constructor
-        public Empleado (string Nombre, string Codigo, string Departamento, double SalarioBase)
+        public Empleado (string nombre, string codigo, string departamento, double salarioBase)
         {
-            nombre = Nombre;
-            codigo = Codigo;
-            departamento = Departamento;
-            salarioBase = SalarioBase;
+            Nombre = nombre;
+            Codigo = codigo;
+            Departamento = departamento;
+            SalarioBase = salarioBase;
         }
 
     }
