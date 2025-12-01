@@ -45,6 +45,17 @@ namespace Sistema_Nomina
             return true;
         }
 
+        public bool EliminarEmpleado(string codigo)
+        {
+            var emp = empleados.Find(e => e.Codigo == codigo);
+            if (emp == null)
+                return false;
+
+            empleados.Remove(emp);
+            return true;
+        }
+
+
 
         //Generando la nomina con sus deduccionnes
         public void GenerarNomina()

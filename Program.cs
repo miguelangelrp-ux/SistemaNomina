@@ -21,8 +21,9 @@ namespace Sistema_Nomina
                 Console.WriteLine("1. Agregar empleado");
                 Console.WriteLine("2. Editar empleado");
                 Console.WriteLine("3. Consultar empleados");
-                Console.WriteLine("4. Generar nómina");
-                Console.WriteLine("5. Reporte mensual");
+                Console.WriteLine("4. Eliminar empleados");
+                Console.WriteLine("5. Generar nómina");
+                Console.WriteLine("6. Reporte mensual");
                 Console.WriteLine("0. Salir");
                 Console.Write("Seleccione opción: ");
                 int.TryParse(Console.ReadLine(), out opcion);
@@ -31,9 +32,10 @@ namespace Sistema_Nomina
                 {
                     case 1: AgregarEmpleadoMenu(); break;
                     case 2: EditarEmpleadoMenu(); break;
-                    case 3: ConsultarEmpleadosMenu(); break;                    
-                    case 4: empresa.GenerarNomina(); break;
-                    case 5: empresa.ReporteMensual(); break;
+                    case 3: ConsultarEmpleadosMenu(); break;  
+                    case 4: EliminarEmpleadoMenu(); break;  
+                    case 5: empresa.GenerarNomina(); break;
+                    case 6: empresa.ReporteMensual(); break;
                     case 0: Console.WriteLine("Saliendo del sistema..."); break;
                     default:
                         Console.WriteLine("Opción no válida."); break;
@@ -127,6 +129,18 @@ namespace Sistema_Nomina
                 Console.WriteLine($"{emp.Codigo} | {emp.Nombre} | {emp.Departamento} | Salario Base: {emp.SalarioBase:C}");
             }
         }
+        
+        static void EliminarEmpleadoMenu()
+        {
+            Console.Write("Ingrese el código del empleado a eliminar: ");
+            string codigo = Console.ReadLine();
+
+            if (empresa.EliminarEmpleado(codigo))
+                Console.WriteLine("Empleado eliminado correctamente.");
+            else
+                Console.WriteLine("Empleado no encontrado.");
+        }
+
 
     }
 }
