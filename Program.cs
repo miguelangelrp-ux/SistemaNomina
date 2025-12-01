@@ -10,6 +10,7 @@ namespace Sistema_Nomina
 
         static void Main(string[] args)
         {
+            //Creando logica de menu principal
             int opcion = -1;
 
             do
@@ -42,7 +43,7 @@ namespace Sistema_Nomina
             } while (opcion != 0);
         }
 
-
+        //Pidiendo los datos del empleado para agregarlo a la lista
         static void AgregarEmpleadoMenu()
         {
             Console.Write("Código: ");
@@ -73,6 +74,7 @@ namespace Sistema_Nomina
                 Console.WriteLine("Ya existe un empleado con ese código.");
         }
 
+        //Consultando empleados, verificando que no hay 0 registrados y luego mostrando
         static void ConsultarEmpleadosMenu()
         {
             var empleados = empresa.ObtenerEmpleados();

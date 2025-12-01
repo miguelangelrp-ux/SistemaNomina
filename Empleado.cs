@@ -7,6 +7,7 @@ namespace Sistema_Nomina
 {
     public class Empleado
     {
+        //Datos del empleado
         public string Nombre {get; set;}
         public string Codigo {get; set;}
         public string Departamento {get; set;}

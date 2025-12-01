@@ -14,6 +14,9 @@ namespace Sistema_Nomina
             empleados = new List<Empleado>();
         }
 
+        //Metodos
+
+        //Agregando empleado
         public bool AgregarEmpleado(Empleado emp)
         {
             if (empleados.Exists(e => e.Codigo == emp.Codigo))
@@ -23,11 +26,13 @@ namespace Sistema_Nomina
             return true;
         }
 
+        //Obteniendo una lista de empleados
         public List<Empleado> ObtenerEmpleados()
         {
             return empleados;
         }
 
+        //Generando la nomina con sus deduccionnes
         public void GenerarNomina()
         {
             if (empleados.Count == 0)
@@ -47,6 +52,7 @@ namespace Sistema_Nomina
             }
         }
 
+        //Generando reporte mensual por todo con sus deducciones
         public void ReporteMensual()
         {
             if (empleados.Count == 0)
