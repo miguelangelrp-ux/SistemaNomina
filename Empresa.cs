@@ -25,6 +25,7 @@ namespace Sistema_Nomina
             tableCmd.ExecuteNonQuery();
         }
 
+        //Agregando al empleado a la base de datos
         public bool AgregarEmpleado(Empleado emp)
         {
             using var connection = new SqliteConnection(connectionString);
@@ -50,6 +51,7 @@ namespace Sistema_Nomina
             }
         }
 
+        //Obteniendo la lista de los empleados creados
         public List<Empleado> ObtenerEmpleados()
         {
             var lista = new List<Empleado>();
@@ -74,6 +76,8 @@ namespace Sistema_Nomina
             return lista;
         }
 
+        //Editanr empleado existente
+
         public bool EditarEmpleado(string codigo, string nuevoNombre, string nuevoDepartamento, double nuevoSalarioBase)
         {
             using var connection = new SqliteConnection(connectionString);
@@ -93,6 +97,7 @@ namespace Sistema_Nomina
             return rows > 0;
         }
 
+        //Borrar empleado existente
         public bool EliminarEmpleado(string codigo)
         {
             using var connection = new SqliteConnection(connectionString);
@@ -106,6 +111,7 @@ namespace Sistema_Nomina
             return rows > 0;
         }
 
+        //Generar la nomina si existe algun empleado
         public void GenerarNomina()
         {
             var empleados = ObtenerEmpleados();
@@ -126,6 +132,8 @@ namespace Sistema_Nomina
                 Console.WriteLine($"Empleado: {emp.Nombre} | Bruto: {emp.SalarioBase:C} | AFP: {afp:C} | ARS: {ars:C} | Neto: {neto:C}");
             }
         }
+
+        //El reporte de los empleados con las deducciones 
 
         public void ReporteMensual()
         {
