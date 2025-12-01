@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "Sistema_Nomina/1.0.0": {
+        "runtime": {
+          "Sistema_Nomina.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Sistema_Nomina/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

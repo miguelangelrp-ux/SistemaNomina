@@ -1,0 +1,15 @@
+D:\Data\m\Uni\25-2\Programacion 1\Sistema_Nomina\obj\Debug\net10.0\Sistema_Nomina.GeneratedMSBuildEditorConfig.editorconfig
+D:\Data\m\Uni\25-2\Programacion 1\Sistema_Nomina\obj\Debug\net10.0\Sistema_Nomina.AssemblyInfoInputs.cache
+D:\Data\m\Uni\25-2\Programacion 1\Sistema_Nomina\obj\Debug\net10.0\Sistema_Nomina.AssemblyInfo.cs
+D:\Data\m\Uni\25-2\Programacion 1\Sistema_Nomina\obj\Debug\net10.0\Sistema_Nomina.csproj.CoreCompileInputs.cache
+D:\Data\m\Uni\25-2\Programacion 1\Sistema_Nomina\obj\Debug\net10.0\Sistema_Nomina.sourcelink.json
+D:\Data\m\Uni\25-2\Programacion 1\Sistema_Nomina\bin\Debug\net10.0\Sistema_Nomina.exe
+D:\Data\m\Uni\25-2\Programacion 1\Sistema_Nomina\bin\Debug\net10.0\Sistema_Nomina.deps.json
+D:\Data\m\Uni\25-2\Programacion 1\Sistema_Nomina\bin\Debug\net10.0\Sistema_Nomina.runtimeconfig.json
+D:\Data\m\Uni\25-2\Programacion 1\Sistema_Nomina\bin\Debug\net10.0\Sistema_Nomina.dll
+D:\Data\m\Uni\25-2\Programacion 1\Sistema_Nomina\bin\Debug\net10.0\Sistema_Nomina.pdb
+D:\Data\m\Uni\25-2\Programacion 1\Sistema_Nomina\obj\Debug\net10.0\Sistema_Nomina.dll
+D:\Data\m\Uni\25-2\Programacion 1\Sistema_Nomina\obj\Debug\net10.0\refint\Sistema_Nomina.dll
+D:\Data\m\Uni\25-2\Programacion 1\Sistema_Nomina\obj\Debug\net10.0\Sistema_Nomina.pdb
+D:\Data\m\Uni\25-2\Programacion 1\Sistema_Nomina\obj\Debug\net10.0\Sistema_Nomina.genruntimeconfig.cache
+D:\Data\m\Uni\25-2\Programacion 1\Sistema_Nomina\obj\Debug\net10.0\ref\Sistema_Nomina.dll
