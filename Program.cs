@@ -20,8 +20,9 @@ namespace Sistema_Nomina
                 Console.WriteLine("\n--- Sistema de Nómina ---");
                 Console.WriteLine("1. Agregar empleado");
                 Console.WriteLine("2. Consultar empleados");
-                Console.WriteLine("3. Generar nómina");
-                Console.WriteLine("4. Reporte mensual");
+                Console.WriteLine("3. Editar empleado");
+                Console.WriteLine("4. Generar nómina");
+                Console.WriteLine("5. Reporte mensual");
                 Console.WriteLine("0. Salir");
                 Console.Write("Seleccione opción: ");
                 int.TryParse(Console.ReadLine(), out opcion);
@@ -30,8 +31,9 @@ namespace Sistema_Nomina
                 {
                     case 1: AgregarEmpleadoMenu(); break;
                     case 2: ConsultarEmpleadosMenu(); break;
-                    case 3: empresa.GenerarNomina(); break;
-                    case 4: empresa.ReporteMensual(); break;
+                    case 3: EditarEmpleadoMenu(); break;
+                    case 4: empresa.GenerarNomina(); break;
+                    case 5: empresa.ReporteMensual(); break;
                     case 0: Console.WriteLine("Saliendo del sistema..."); break;
                     default:
                         Console.WriteLine("Opción no válida."); break;
@@ -90,6 +92,39 @@ namespace Sistema_Nomina
                 Console.WriteLine($"{emp.Codigo} | {emp.Nombre} | {emp.Departamento} | Salario Base: {emp.SalarioBase:C}");
             }
         }
+
+        static void EditarEmpleadoMenu()
+        {
+            Console.Write("Ingrese el código del empleado a editar: ");
+            string codigo = Console.ReadLine();
+
+            var emp = empresa.ObtenerEmpleados().Find(e => e.Codigo == codigo);
+            if (emp == null)
+            {
+                Console.WriteLine("Empleado no encontrado.");
+                return;
+            }
+
+            Console.Write($"Nuevo nombre (actual: {emp.Nombre}): ");
+            string nombre = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(nombre)) nombre = emp.Nombre;
+
+            Console.Write($"Nuevo departamento (actual: {emp.Departamento}): ");
+            string departamento = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(departamento)) departamento = emp.Departamento;
+
+            Console.Write($"Nuevo salario base (actual: {emp.SalarioBase}): ");
+            string salarioInput = Console.ReadLine();
+            double salarioBase;
+            if (!double.TryParse(salarioInput, out salarioBase) || salarioBase <= 0)
+                salarioBase = emp.SalarioBase;
+
+            if (empresa.EditarEmpleado(codigo, nombre, departamento, salarioBase))
+                Console.WriteLine("Empleado actualizado correctamente.");
+            else
+                Console.WriteLine("No se pudo actualizar el empleado.");
+        }
+
     }
 }
 
