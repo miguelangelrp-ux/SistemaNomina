@@ -32,6 +32,20 @@ namespace Sistema_Nomina
             return empleados;
         }
 
+        //Editar empleado
+        public bool EditarEmpleado(string codigo, string nuevoNombre, string nuevoDepartamento, double nuevoSalarioBase)
+        {
+            var emp = empleados.Find(e => e.Codigo == codigo);
+            if (emp == null)
+                return false; // No encontrado
+
+            emp.Nombre = nuevoNombre;
+            emp.Departamento = nuevoDepartamento;
+            emp.SalarioBase = nuevoSalarioBase;
+            return true;
+        }
+
+
         //Generando la nomina con sus deduccionnes
         public void GenerarNomina()
         {

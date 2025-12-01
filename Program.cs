@@ -19,8 +19,8 @@ namespace Sistema_Nomina
                 Console.WriteLine("Servicios Corporativos Caribe SRL");
                 Console.WriteLine("\n--- Sistema de Nómina ---");
                 Console.WriteLine("1. Agregar empleado");
-                Console.WriteLine("2. Consultar empleados");
-                Console.WriteLine("3. Editar empleado");
+                Console.WriteLine("2. Editar empleado");
+                Console.WriteLine("3. Consultar empleados");
                 Console.WriteLine("4. Generar nómina");
                 Console.WriteLine("5. Reporte mensual");
                 Console.WriteLine("0. Salir");
@@ -30,8 +30,8 @@ namespace Sistema_Nomina
                 switch (opcion)
                 {
                     case 1: AgregarEmpleadoMenu(); break;
-                    case 2: ConsultarEmpleadosMenu(); break;
-                    case 3: EditarEmpleadoMenu(); break;
+                    case 2: EditarEmpleadoMenu(); break;
+                    case 3: ConsultarEmpleadosMenu(); break;                    
                     case 4: empresa.GenerarNomina(); break;
                     case 5: empresa.ReporteMensual(); break;
                     case 0: Console.WriteLine("Saliendo del sistema..."); break;
@@ -76,23 +76,8 @@ namespace Sistema_Nomina
                 Console.WriteLine("Ya existe un empleado con ese código.");
         }
 
-        //Consultando empleados, verificando que no hay 0 registrados y luego mostrando
-        static void ConsultarEmpleadosMenu()
-        {
-            var empleados = empresa.ObtenerEmpleados();
-            if (empleados.Count == 0)
-            {
-                Console.WriteLine("No hay empleados registrados.");
-                return;
-            }
 
-            Console.WriteLine("\n--- Lista de Empleados ---");
-            foreach (var emp in empleados)
-            {
-                Console.WriteLine($"{emp.Codigo} | {emp.Nombre} | {emp.Departamento} | Salario Base: {emp.SalarioBase:C}");
-            }
-        }
-
+        //Editar empleado existente
         static void EditarEmpleadoMenu()
         {
             Console.Write("Ingrese el código del empleado a editar: ");
@@ -123,6 +108,24 @@ namespace Sistema_Nomina
                 Console.WriteLine("Empleado actualizado correctamente.");
             else
                 Console.WriteLine("No se pudo actualizar el empleado.");
+        }
+
+
+         //Consultando empleados, verificando que no hay 0 registrados y luego mostrando
+        static void ConsultarEmpleadosMenu()
+        {
+            var empleados = empresa.ObtenerEmpleados();
+            if (empleados.Count == 0)
+            {
+                Console.WriteLine("No hay empleados registrados.");
+                return;
+            }
+
+            Console.WriteLine("\n--- Lista de Empleados ---");
+            foreach (var emp in empleados)
+            {
+                Console.WriteLine($"{emp.Codigo} | {emp.Nombre} | {emp.Departamento} | Salario Base: {emp.SalarioBase:C}");
+            }
         }
 
     }
